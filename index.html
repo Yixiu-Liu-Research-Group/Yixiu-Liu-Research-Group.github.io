@@ -608,6 +608,114 @@
       font-size: 0.9em;
     }
 
+    .right-panel {
+      position: fixed;
+      top: 92px;
+      right: 28px;
+      width: 260px;
+      max-height: calc(100vh - 120px);
+      overflow-y: auto;
+      padding-right: 4px;
+      z-index: 20;
+    }
+    
+    .quick-card {
+      background: rgba(255, 255, 255, 0.92);
+      border: 1px solid rgba(220, 220, 220, 0.9);
+      border-radius: 14px;
+      padding: 14px 16px;
+      margin-bottom: 14px;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+      font: inherit;
+    }
+    
+    .quick-title {
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: #222;
+    }
+    
+    .quick-text {
+      font-size: 13px;
+      line-height: 1.65;
+      color: #444;
+    }
+    
+    .quick-btn {
+      display: inline-block;
+      margin-top: 10px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: #222;
+      color: #fff;
+      font-size: 12px;
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+    
+    .quick-btn:hover {
+      opacity: 0.82;
+    }
+    
+    .quick-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+    }
+    
+    .quick-tags span {
+      font-size: 12px;
+      padding: 4px 8px;
+      border-radius: 999px;
+      background: #f3f3f3;
+      color: #444;
+    }
+    
+    .quick-stats {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+    }
+    
+    .quick-stat {
+      background: #f7f7f7;
+      border-radius: 10px;
+      padding: 9px 6px;
+      text-align: center;
+    }
+    
+    .quick-stat strong {
+      display: block;
+      font-size: 16px;
+      color: #222;
+    }
+    
+    .quick-stat span {
+      display: block;
+      margin-top: 2px;
+      font-size: 11px;
+      color: #666;
+    }
+    
+    .quick-news {
+      margin: 0;
+      padding-left: 16px;
+    }
+    
+    .quick-news li {
+      font-size: 12.5px;
+      line-height: 1.55;
+      margin-bottom: 6px;
+      color: #444;
+    }
+    
+    @media (max-width: 1180px) {
+      .right-panel {
+        display: none;
+      }
+    }
+
     @media (min-width: 1320px) {
       .container {
         margin-left: 275px;
@@ -716,7 +824,75 @@
     <div class="nav-mini">按 D 切换深色模式</div>
   </nav>
 
-  <div class="container">
+  </nav>
+
+<aside class="right-panel">
+  <div class="quick-card">
+    <div class="quick-title">Quick Info</div>
+    <div class="quick-text">
+      <strong>刘一秀</strong><br>
+      副教授 · 硕士生导师<br>
+      杭州电子科技大学<br>
+      网络空间安全学院
+    </div>
+  </div>
+
+  <div class="quick-card">
+    <div class="quick-title">Openings</div>
+    <div class="quick-text">
+      招收 2026 级硕士研究生<br>
+      欢迎杭电优秀本科生加入课题组
+    </div>
+    <a class="quick-btn" href="#email-modal" onclick="openEmailModal()">Email Me</a>
+  </div>
+
+  <div class="quick-card">
+    <div class="quick-title">Research Tags</div>
+    <div class="quick-tags">
+      <span>Computer Vision</span>
+      <span>Person ReID</span>
+      <span>Multimodal AI</span>
+      <span>AI Security</span>
+      <span>Camouflaged Detection</span>
+      <span>3D Human Editing</span>
+    </div>
+  </div>
+
+  <div class="quick-card">
+    <div class="quick-title">Highlights</div>
+    <div class="quick-stats">
+      <div class="quick-stat">
+        <strong>20+</strong>
+        <span>Papers</span>
+      </div>
+      <div class="quick-stat">
+        <strong>5</strong>
+        <span>Patents</span>
+      </div>
+      <div class="quick-stat">
+        <strong>10+</strong>
+        <span>Applications</span>
+      </div>
+      <div class="quick-stat">
+        <strong>多项</strong>
+        <span>Projects</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="quick-card">
+    <div class="quick-title">Latest News</div>
+    <ul class="quick-news">
+      <li>2026 · Pattern Recognition 论文发表</li>
+      <li>2025 · AAAI 论文收录</li>
+      <li>2024 · IEEE HPCC Outstanding Paper Award</li>
+      <li>2024 · 学生论文被 TCE 期刊收录</li>
+      <li>2024 · 学生获华为上海研究所 offer</li>
+    </ul>
+  </div>
+</aside>
+
+<div class="container">
 
     <section id="home" class="header fade-in">
       <div class="info">
