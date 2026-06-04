@@ -1,0 +1,958 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="author" content="Yixiu Liu">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+  <title>Yixiu Liu</title>
+
+  <style>
+    :root {
+      --bg-color: #ffffff;
+      --text-color: #2c3e50;
+      --card-bg: #f8f9fa;
+      --primary: #165DFF;
+      --border-color: #e5e7eb;
+      --shadow: 0 2px 10px rgba(0,0,0,0.08);
+    }
+
+    .dark-mode {
+      --bg-color: #121212;
+      --text-color: #e0e0e0;
+      --card-bg: #1e1e1e;
+      --primary: #4d94ff;
+      --border-color: #333333;
+      --shadow: 0 2px 10px rgba(0,0,0,0.3);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      transition: all 0.25s ease;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: "Segoe UI", Roboto, Arial, sans-serif;
+      line-height: 1.55;
+      color: var(--text-color);
+      background-color: var(--bg-color);
+      padding: 1rem 0.5rem;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 1rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 2rem;
+      margin-bottom: 1.4rem;
+    }
+
+    .info {
+      flex: 1;
+      min-width: 300px;
+    }
+
+    .avatar-wrap {
+      width: 180px;
+      height: 150px;
+      border-radius: 12px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .avatar {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+    }
+
+    .avatar-placeholder {
+      width: 100%;
+      height: 90%;
+      display: none;
+      justify-content: center;
+      align-items: center;
+      font-size: 1.1em;
+      font-weight: 600;
+      color: var(--primary);
+      text-align: center;
+      padding: 1rem;
+    }
+
+    .avatar-wrap:hover {
+      transform: scale(1.03);
+    }
+
+    .name {
+      font-size: 2.2em;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 0.8rem;
+      text-align: center;
+    }
+
+    .info p {
+      margin: 5px 0;
+    }
+
+    .links {
+      text-align: center;
+      margin-top: 0.8rem;
+    }
+
+    a {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    hr {
+      border: none;
+      height: 1px;
+      background-color: var(--border-color);
+      margin: 1.5rem 0;
+    }
+
+    h3 {
+      font-size: 1.35em;
+      font-weight: 600;
+      color: var(--text-color);
+      margin-bottom: 0.8rem;
+      padding-bottom: 0.35rem;
+      border-bottom: 2px solid var(--primary);
+      display: inline-block;
+    }
+
+    .card {
+      background-color: var(--card-bg);
+      padding: 0.9rem 1.25rem;
+      padding-left: 1.8rem;
+      border-radius: 10px;
+      box-shadow: var(--shadow);
+      margin-bottom: 0.75rem;
+      position: relative;
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      left: 0.75rem;
+      top: 1.15rem;
+      width: 6px;
+      height: 6px;
+      background: var(--primary);
+      border-radius: 50%;
+    }
+
+    .card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+
+    .card p {
+      margin: 3px 0;
+    }
+
+    .resume-list {
+      margin-top: 4px;
+      padding-left: 1.1rem;
+    }
+
+    .resume-list li {
+      margin-bottom: 3px;
+    }
+
+    .services-item {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    .papertitle {
+      font-size: 1.02em;
+    }
+
+    .venue-line {
+      margin: 4px 0 0 0;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .paper-meta {
+      display: inline;
+      font-size: 0.9em;
+      color: var(--primary);
+      font-weight: 600;
+      font-style: normal;
+    }
+
+    .tag {
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 0.85em;
+      margin-right: 4px;
+      color: white;
+      font-style: normal;
+      white-space: nowrap;
+    }
+
+    .tag-tvc { background-color: #6d59b6; }
+    .tag-tip { background-color: #e74c3c; }
+    .tag-tce { background-color: #3498db; }
+    .tag-infofusion { background-color: #16a085; }
+    .tag-grsl { background-color: #2ecc71; }
+    .tag-cg { background-color: #9b59b6; }
+    .tag-cee { background-color: #f39c12; }
+    .tag-mbec { background-color: #27ae60; }
+    .tag-asoc { background-color: #8e44ad; }
+    .tag-ijist { background-color: #34495e; }
+    .tag-jdi { background-color: #d35400; }
+    .tag-eswa { background-color: #c0392b; }
+    .tag-jvcir { background-color: #7f8c8d; }
+
+    .tag-pr { background-color: #e74c3c; }
+    .tag-aaai { background-color: #34495e; }
+    .tag-kbs { background-color: #16a085; }
+    .tag-tim { background-color: #f39c12; }
+    .tag-tetci { background-color: #8e44ad; }
+    .tag-tgrs { background-color: #2ecc71; }
+    .tag-tcsvt { background-color: #9b59b6; }
+
+    .students-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, 160px);
+      gap: 1rem;
+      margin-top: 0.5rem;
+      justify-content: start;
+    }
+    
+    .student-card {
+      width: 160px;
+      background-color: var(--card-bg);
+      border-radius: 10px;
+      box-shadow: var(--shadow);
+      padding: 0.8rem;
+      text-align: center;
+      border: 1px solid var(--border-color);
+    }
+    
+    .student-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+    
+    .student-photo-wrap {
+      width: 115px;
+      height: 115px;
+      margin: 0 auto 0.5rem auto;
+      border-radius: 50%;
+      overflow: hidden;
+      background: var(--bg-color);
+      border: 1px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .student-photo {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    
+    .student-placeholder {
+      display: none;
+      color: var(--primary);
+      font-weight: 600;
+      font-size: 0.9em;
+    }
+    
+    .student-name {
+      display: inline-block;
+      font-weight: 600;
+      color: var(--primary);
+      font-size: 1em;
+      margin-top: 0.15rem;
+    }
+    
+    .student-info {
+      font-size: 0.86em;
+      color: var(--text-color);
+      margin-top: 0.15rem;
+    }
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.7);
+    }
+
+    .modal-content {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: var(--card-bg);
+      padding: 2rem;
+      border-radius: 12px;
+      text-align: center;
+      min-width: 300px;
+    }
+
+    .email-text {
+      font-size: 1.05em;
+      padding: 0.8rem 1.2rem;
+      background-color: var(--bg-color);
+      border-radius: 6px;
+      margin-bottom: 1rem;
+      cursor: pointer;
+      border: 1px solid var(--border-color);
+    }
+
+    .close {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      font-size: 1.5em;
+      cursor: pointer;
+      color: var(--text-color);
+    }
+
+    .close:hover {
+      color: var(--primary);
+    }
+
+    #backTop {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      width: 45px;
+      height: 45px;
+      background-color: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 50%;
+      font-size: 1.2rem;
+      cursor: pointer;
+      display: none;
+      justify-content: center;
+      align-items: center;
+      box-shadow: var(--shadow);
+      z-index: 999;
+    }
+
+    #backTop:hover {
+      background-color: #0047cc;
+    }
+
+    #themeToggle {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      padding: 0.45rem 0.9rem;
+      border-radius: 20px;
+      border: none;
+      background-color: var(--primary);
+      color: white;
+      cursor: pointer;
+      z-index: 999;
+    }
+
+    .loader {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: var(--bg-color);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      transition: opacity 0.5s ease;
+    }
+
+    .loader.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .loader-circle {
+      width: 50px;
+      height: 50px;
+      border: 4px solid var(--border-color);
+      border-top: 4px solid var(--primary);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.6s ease;
+    }
+
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .visitor-count {
+      text-align: center;
+      padding: 0.8rem;
+      background: var(--card-bg);
+      border-radius: 8px;
+      margin-top: 1rem;
+      font-size: 0.9em;
+    }
+
+    @media (max-width: 760px) {
+      .header {
+        justify-content: center;
+      }
+
+      .name {
+        font-size: 1.8em;
+      }
+
+      .avatar-wrap {
+        width: 160px;
+        height: 160px;
+      }
+
+      #themeToggle {
+        top: 0.6rem;
+        right: 0.6rem;
+        font-size: 0.85em;
+      }
+
+      .venue-line {
+        display: block;
+      }
+
+      .paper-meta {
+        display: block;
+        margin-top: 4px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="loader" id="loader">
+    <div class="loader-circle"></div>
+  </div>
+
+  <button id="themeToggle">🌙 Dark Mode</button>
+  <button id="backTop">🚀</button>
+
+  <div class="container">
+
+    <!-- Header -->
+    <div class="header fade-in">
+      <div class="info">
+        <h1 class="name">Yixiu Liu 刘一秀</h1>
+
+        <p>
+          🧑‍🔬 I am an Associate Professor and master's supervisor at the School of Cyber Science and Engineering,
+          Hangzhou Dianzi University, China.
+        </p>
+
+        <p>
+          🎓 I received my Ph.D. in Control Science and Engineering, majoring in Pattern Recognition and Intelligent Systems, from Northeastern University. I was also a CSC visiting Ph.D. student at the University of California, Riverside.
+        </p>
+
+        <p>
+          🔍 My research interests include computer vision, artificial intelligence, cybersecurity, cross-modal person re-identification, 3D human editing, camouflaged object detection, and backdoor attack and defense.
+        </p>
+
+        <div class="links">
+          <a href="#email-modal" onclick="openEmailModal()">📧 Email</a> &nbsp;/&nbsp;
+          <a href="https://faculty.hdu.edu.cn/wlkjaqxy/lyx/main.htm" target="_blank" rel="noopener noreferrer">📚 School</a>
+        </div>
+      </div>
+
+      <div class="avatar-wrap">
+        <img
+          src="images/liuyixiu.jpg"
+          alt="Yixiu Liu"
+          class="avatar"
+          onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+        >
+        <div class="avatar-placeholder">Profile<br>Photo</div>
+      </div>
+    </div>
+
+    <hr class="fade-in">
+
+    <!-- Biography -->
+    <h3 class="fade-in"><strong>👨‍🏫 Biography</strong></h3>
+    <div class="card fade-in">
+      <p>
+        <strong>Yixiu Liu</strong> is an Associate Professor and master's supervisor at the School of Cyber Science and Engineering, Hangzhou Dianzi University. She received her Ph.D. from Northeastern University in Control Science and Engineering, with a focus on Pattern Recognition and Intelligent Systems, and spent two years as a CSC visiting scholar at the University of California, Riverside. Her research focuses on computer vision, artificial intelligence, cybersecurity, cross-modal person re-identification, multimodal intention understanding, video anomaly detection and localization, 3D human editing, camouflaged object detection, and AI model backdoor attack and defense.
+      </p>
+    </div>
+
+    <hr class="fade-in">
+
+    <!-- Education -->
+    <h3 class="fade-in"><strong>🎓 Education</strong></h3>
+    <div class="card fade-in">
+      <ul class="resume-list">
+        <li><strong>Ph.D.</strong>, Control Science and Engineering, Northeastern University, 2017.09&ndash;2022.01</li>
+        <li><strong>CSC Visiting Ph.D. Student</strong>, University of California, Riverside, 2019.01&ndash;2020.01</li>
+        <li><strong>B.Eng.</strong>, Automation, Northeastern University, 2013.09&ndash;2017.06</li>
+      </ul>
+    </div>
+
+    <hr class="fade-in">
+
+    <!-- Academic Appointments -->
+    <h3 class="fade-in"><strong>💼 Academic Appointments</strong></h3>
+    <div class="card fade-in">
+      <ul class="resume-list">
+        <li><strong>Associate Professor</strong>, School of Cyber Science and Engineering, Hangzhou Dianzi University, 2026.01&ndash;Present</li>
+        <li><strong>Department Head</strong>, Department of Cyberspace Security, School of Cyber Science and Engineering, Hangzhou Dianzi University, 2024.09&ndash;Present</li>
+        <li><strong>Assistant Dean</strong>, School of Cyber Science and Engineering, Hangzhou Dianzi University, 2025.01&ndash;2025.12</li>
+        <li><strong>Lecturer</strong>, School of Cyber Science and Engineering, Hangzhou Dianzi University, 2022.03&ndash;2025.12</li>
+        <li><strong>Seconded Researcher</strong>, Administrative Center for China's Agenda 21, 2026.03&ndash;Present</li>
+        <li><strong>Seconded Researcher</strong>, China Association for Science and Technology, 2024.04&ndash;2024.09</li>
+      </ul>
+    </div>
+
+    <hr class="fade-in">
+
+    <!-- Research Interests -->
+    <h3 class="fade-in"><strong>🔍 Research Interests</strong></h3>
+    <div class="card fade-in">
+      <span class="services-item"><strong>Computer Vision:</strong> Cross-modal person re-identification, cloth-changing person re-identification, text-based person re-identification, camouflaged object detection, and salient object detection.</span>
+      <span class="services-item"><strong>Multimodal Artificial Intelligence:</strong> Multimodal intention recognition, video anomaly detection and localization, and robust visual understanding in complex scenarios.</span>
+      <span class="services-item"><strong>3D Human Editing:</strong> 3D human modeling, pose and shape editing, clothing replacement, motion transfer, and realistic rendering based on NeRF, 3D Gaussian Splatting, and large models.</span>
+      <span class="services-item"><strong>AI Security:</strong> Backdoor attack and defense, hidden trigger analysis, and trustworthy AI in security-critical applications.</span>
+    </div>
+
+    <hr class="fade-in">
+
+    <!-- Publications -->
+    <h3 class="fade-in"><strong>📄 Representative Publications</strong></h3>
+
+    <div class="card fade-in">
+      <span class="papertitle">
+        <strong>Understanding Gait Recognition through Silhouette Sequence Disentanglement and Fine-grained Visualization</strong>
+      </span>
+      <br>
+      Shaoxiong Zhang, <strong>Yixiu Liu*</strong>, Jinkai Zheng, Liangqiong Qu, Ming Li, and Chenggang Yan.
+      <br>
+      <p class="venue-line">
+        <em>
+          <span class="tag tag-pr">PR 2026</span>
+          Pattern Recognition, DOI: <a href="https://doi.org/10.1016/j.patcog.2026.113619" target="_blank" rel="noopener noreferrer">10.1016/j.patcog.2026.113619</a>.
+        </em>
+        <span class="paper-meta">Corresponding Author / JCR Q1 / CAS Q1 Top</span>
+      </p>
+    </div>
+    <div class="card fade-in">
+      <span class="papertitle">
+        <strong>Class-wise Federated Unlearning: Harnessing Active Forgetting with Teacher&ndash;Student Memory Generation</strong>
+      </span>
+      <br>
+      Yuyuan Li, Jiaming Zhang, <strong>Yixiu Liu</strong>, and Chaochao Chen.
+      <br>
+      <p class="venue-line">
+        <em>
+          <span class="tag tag-kbs">KBS 2025</span>
+          Knowledge-Based Systems, 316: 113353. DOI: <a href="https://doi.org/10.1016/j.knosys.2025.113353" target="_blank" rel="noopener noreferrer">10.1016/j.knosys.2025.113353</a>.
+        </em>
+        <span class="paper-meta">Published: 2025-05-12</span>
+      </p>
+    </div>
+    <div class="card fade-in">
+      <span class="papertitle">
+        <strong>Improving Grasp Pose Detection by Implicitly Utilizing Geometric Information and Spatial Relations of Objects in Clutter</strong>
+      </span>
+      <br>
+      Lei Wang, Yunzhou Zhang, Shangdong Zhu, He Cao, Le Zhou, and <strong>Yixiu Liu</strong>.
+      <br>
+      <p class="venue-line">
+        <em>
+          <span class="tag tag-tim">TIM 2025</span>
+          IEEE Transactions on Instrumentation and Measurement, 74: 1&ndash;11. DOI: <a href="https://doi.org/10.1109/TIM.2025.3550952" target="_blank" rel="noopener noreferrer">10.1109/TIM.2025.3550952</a>.
+        </em>
+        <span class="paper-meta">Published: 2025-03-13</span>
+      </p>
+    </div>
+    <div class="card fade-in">
+      <span class="papertitle">
+        <strong>AE-Net: Appearance-Enriched Neural Network With Foreground Enhancement for Person Re-Identification</strong>
+      </span>
+      <br>
+      Shangdong Zhu, Yunzhou Zhang, <strong>Yixiu Liu</strong>, Yu Feng, Sonya Coleman, and Dermot Kerr.
+      <br>
+      <p class="venue-line">
+        <em>
+          <span class="tag tag-tetci">TETCI 2025</span>
+          IEEE Transactions on Emerging Topics in Computational Intelligence, 9(5): 3518&ndash;3532. DOI: <a href="https://doi.org/10.1109/TETCI.2025.3543775" target="_blank" rel="noopener noreferrer">10.1109/TETCI.2025.3543775</a>.
+        </em>
+        <span class="paper-meta">Published: 2025-03-10</span>
+      </p>
+    </div>
+    <div class="card fade-in">
+      <span class="papertitle">
+        <strong>SdalsNet: Self-Distilled Attention Localization and Shift Network for Unsupervised Camouflaged Object Detection</strong>
+      </span>
+      <br>
+      Peiyao Shou, <strong>Yixiu Liu*</strong>, Wei Wang, Yaoqi Sun, Zhigao Zheng, Shangdong Zhu, and Chenggang Yan.
+      <br>
+      <p class="venue-line">
+        <em>
+          <span class="tag tag-aaai">AAAI 2025</span>
+          Proceedings of the AAAI Conference on Artificial Intelligence, 39(7): 6914&ndash;6921.
+        </em>
+        <span class="paper-meta">Corresponding Author / CCF A Conference</span>
+      </p>
+    </div>
+    <div class="card fade-in">
+      <span class="papertitle">
+        <strong>Shrink and Expose: Locate Edge Coarse-to-Fine for Camouflaged Object Detection</strong>
+      </span>
+      <br>
+      Kejun Kang, <strong>Yixiu Liu*</strong>, Yaoqi Sun, Shangdong Zhu, Fawei Ge, Wei Wang, Chenggang Yan, and Zhigao Zheng.
+      <br>
+      <p class="venue-line">
+        <em>
+          <span class="tag tag-tce">TCE 2025</span>
+          IEEE Transactions on Consumer Electronics, 71(1): 785&ndash;795.
+        </em>
+        <span class="paper-meta">Corresponding Author / JCR Q1 / CAS Q1 Top</span>
+      </p>
+    </div>
+    <div class="card fade-in">
+      <span class="papertitle">
+        <strong>Joint Representation Learning Based on Feature Center Region Diffusion and Edge Radiation for Cross-View Geo-Localization</strong>
+      </span>
+      <br>
+      Fawei Ge, Yunzhou Zhang, Li Wang, <strong>Yixiu Liu</strong>, Pengju Si, Jinjin Zhang, and You Shen.
+      <br>
+      <p class="venue-line">
+        <em>
+          <span class="tag tag-tgrs">TGRS 2025</span>
+          IEEE Transactions on Geoscience and Remote Sensing, 63: 1&ndash;13. DOI: <a href="https://doi.org/10.1109/TGRS.2024.3515484" target="_blank" rel="noopener noreferrer">10.1109/TGRS.2024.3515484</a>.
+        </em>
+        <span class="paper-meta">Published: 2024-12-11</span>
+      </p>
+    </div>
+    <div class="card fade-in">
+      <span class="papertitle">
+        <strong>A Dual-Stream Cross-Domain Integration Network for RGB-T Salient Object Detection</strong>
+      </span>
+      <br>
+      Xiaosheng Yu, Xiufei Cheng, <strong>Yixiu Liu</strong>, and Zhigao Zheng.
+      <br>
+      <p class="venue-line">
+        <em>
+          <span class="tag tag-tce">TCE 2025</span>
+          IEEE Transactions on Consumer Electronics, 71(1): 883&ndash;894. DOI: <a href="https://doi.org/10.1109/TCE.2024.3502692" target="_blank" rel="noopener noreferrer">10.1109/TCE.2024.3502692</a>.
+        </em>
+        <span class="paper-meta">Published: 2024-11-20</span>
+      </p>
+    </div>
+    <div class="card fade-in">
+      <span class="papertitle">
+        <strong>Expand, Pool and Confine: Reliably Detaching Salient Objects From the Background</strong>
+      </span>
+      <br>
+      <strong>Yixiu Liu</strong>, Peiyao Shou, Yaoqi Sun, Chenggang Yan, and Zhigao Zheng.
+      <br>
+      <p class="venue-line">
+        <em>
+          <span class="tag tag-tce">TCE 2024</span>
+          IEEE Transactions on Consumer Electronics, 70(3): 5353&ndash;5362.
+        </em>
+        <span class="paper-meta">First Author / JCR Q1</span>
+      </p>
+    </div>
+    <div class="card fade-in">
+      <span class="papertitle">
+        <strong>Multilevel Feedback Joint Representation Learning Network Based on Adaptive Area Elimination for Cross-View Geo-Localization</strong>
+      </span>
+      <br>
+      Fawei Ge, Yunzhou Zhang, Li Wang, Wei Liu, <strong>Yixiu Liu</strong>, Sonya Coleman, and Dermot Kerr.
+      <br>
+      <p class="venue-line">
+        <em>
+          <span class="tag tag-tgrs">TGRS 2024</span>
+          IEEE Transactions on Geoscience and Remote Sensing, 62: 1&ndash;15. DOI: <a href="https://doi.org/10.1109/TGRS.2024.3396330" target="_blank" rel="noopener noreferrer">10.1109/TGRS.2024.3396330</a>.
+        </em>
+        <span class="paper-meta">Published: 2024-05-02</span>
+      </p>
+    </div>
+    <div class="card fade-in">
+      <span class="papertitle">
+        <strong>Multibranch Joint Representation Learning Based on Information Fusion Strategy for Cross-View Geo-Localization</strong>
+      </span>
+      <br>
+      Fawei Ge, Yunzhou Zhang, <strong>Yixiu Liu</strong>, Guiyuan Wang, Sonya Coleman, Dermot Kerr, and Li Wang.
+      <br>
+      <p class="venue-line">
+        <em>
+          <span class="tag tag-tgrs">TGRS 2024</span>
+          IEEE Transactions on Geoscience and Remote Sensing, 62: 1&ndash;16. DOI: <a href="https://doi.org/10.1109/TGRS.2024.3378453" target="_blank" rel="noopener noreferrer">10.1109/TGRS.2024.3378453</a>.
+        </em>
+        <span class="paper-meta">Published: 2024-03-19</span>
+      </p>
+    </div>
+    <div class="card fade-in">
+      <span class="papertitle">
+        <strong>Data Assimilation Network for Generalizable Person Re-Identification</strong>
+      </span>
+      <br>
+      <strong>Yixiu Liu</strong>, Yunzhou Zhang, Bir Bhanu, Sonya Coleman, and Dermot Kerr.
+      <br>
+      <p class="venue-line">
+        <em>
+          <span class="tag tag-tcsvt">TCSVT 2022</span>
+          IEEE Transactions on Circuits and Systems for Video Technology, 32: 5536&ndash;5550.
+        </em>
+        <span class="paper-meta">First Author / JCR Q1 / CAS Q1 Top</span>
+      </p>
+    </div>
+    <div class="card fade-in">
+      <span class="papertitle">
+        <strong>Advancing Image Understanding in Poor Visibility Environments: A Collective Benchmark Study</strong>
+      </span>
+      <br>
+      Wenhan Yang, Ye Yuan, Wenqi Ren, Jiaying Liu, Walter J. Scheirer, Zhangyang Wang, Taiheng Zhang, et al., including <strong>Yixiu Liu</strong>.
+      <br>
+      <p class="venue-line">
+        <em>
+          <span class="tag tag-tip">TIP 2020</span>
+          IEEE Transactions on Image Processing, 29: 5737&ndash;5752. DOI: <a href="https://doi.org/10.1109/TIP.2020.2981922" target="_blank" rel="noopener noreferrer">10.1109/TIP.2020.2981922</a>.
+        </em>
+        <span class="paper-meta">Collective Benchmark Study</span>
+      </p>
+    </div>
+
+    <hr class="fade-in">
+
+    <!-- Academic Services -->
+    <h3 class="fade-in"><strong>🤝 Academic Services</strong></h3>
+    <div class="card fade-in">
+      <span class="services-item"><strong>Reviewer:</strong> IEEE TIP, IEEE TIFS, IEEE TCSVT, IEEE TDSC, IEEE TGRS, Pattern Recognition, and other journals.</span>
+      <span class="services-item"><strong>Program Committee Member:</strong> NeurIPS, AAAI, ACM MM, and other major conferences.</span>
+      <span class="services-item"><strong>Editorial Service:</strong> Leading Guest Editor, IEEE Transactions on Consumer Electronics.</span>
+      <span class="services-item"><strong>Conference Service:</strong> Workshop Chair, 2025 IEEE GreenCom Conference.</span>
+      <span class="services-item"><strong>Memberships:</strong> IEEE Member, CSIG Member, and CICC Member.</span>
+    </div>
+
+    <hr class="fade-in">
+
+    <!-- Students -->
+    <h3 class="fade-in"><strong>👥 Students</strong></h3>
+
+    <div class="students-grid fade-in">
+
+      <div class="student-card">
+        <div class="student-photo-wrap">
+          <img
+            src="images/lulu1.png"
+            alt="Jiang Tao"
+            class="student-photo"
+            onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"
+          >
+          <div class="student-placeholder">Photo</div>
+        </div>
+        <span class="student-name">Jiang Tao</span>
+        <div class="student-info">Graduate Student · Civil Service Position, Anqing Public Security Bureau, Anhui</div>
+      </div>
+      <div class="student-card">
+        <div class="student-photo-wrap">
+          <img
+            src="images/lulu2.png"
+            alt="Gao Ye"
+            class="student-photo"
+            onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"
+          >
+          <div class="student-placeholder">Photo</div>
+        </div>
+        <span class="student-name">Gao Ye</span>
+        <div class="student-info">Graduate Student · Cloud Computing Developer, Huawei Shanghai</div>
+      </div>
+      <div class="student-card">
+        <div class="student-photo-wrap">
+          <img
+            src="images/lulu3.png"
+            alt="Wang Huatao"
+            class="student-photo"
+            onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"
+          >
+          <div class="student-placeholder">Photo</div>
+        </div>
+        <span class="student-name">Wang Huatao</span>
+        <div class="student-info">Graduate Student · Selected Graduate, Organization Department of Qingyuan County, Lishui, Zhejiang</div>
+      </div>
+      <div class="student-card">
+        <div class="student-photo-wrap">
+          <img
+            src="images/lulu4.png"
+            alt="You Zehong"
+            class="student-photo"
+            onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"
+          >
+          <div class="student-placeholder">Photo</div>
+        </div>
+        <span class="student-name">You Zehong</span>
+        <div class="student-info">Graduate Student · AI Software Development, Huawei Shanghai Research Institute</div>
+      </div>
+      <div class="student-card">
+        <div class="student-photo-wrap">
+          <img
+            src="images/lulu5.png"
+            alt="Shou Peiyao"
+            class="student-photo"
+            onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"
+          >
+          <div class="student-placeholder">Photo</div>
+        </div>
+        <span class="student-name">Shou Peiyao</span>
+        <div class="student-info">Undergraduate Student · AAAI / TCE Publications</div>
+      </div>
+      <div class="student-card">
+        <div class="student-photo-wrap">
+          <img
+            src="images/lulu6.png"
+            alt="Kang Kejun"
+            class="student-photo"
+            onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"
+          >
+          <div class="student-placeholder">Photo</div>
+        </div>
+        <span class="student-name">Kang Kejun</span>
+        <div class="student-info">Undergraduate Student · TCE Publication / National Competition Award</div>
+      </div>
+
+    </div>
+
+    <div class="visitor-count fade-in">
+      👀✨ Total Visits: <span id="visit-count">0</span>
+    </div>
+
+  </div>
+
+  <!-- Email Modal -->
+  <div id="email-modal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeEmailModal()">&times;</span>
+      <p class="email-text" id="emailAddr" onclick="copyEmail()">yxliu541941@163.com</p>
+      <p id="copyTip">📧 Click to copy / Contact me via email</p>
+    </div>
+  </div>
+
+  <script>
+    function openEmailModal() {
+      document.getElementById("email-modal").style.display = "block";
+    }
+
+    function closeEmailModal() {
+      document.getElementById("email-modal").style.display = "none";
+    }
+
+    window.onclick = function(event) {
+      const emailModal = document.getElementById("email-modal");
+      if (event.target === emailModal) {
+        closeEmailModal();
+      }
+    };
+
+    function copyEmail() {
+      const email = document.getElementById("emailAddr").innerText;
+      navigator.clipboard.writeText(email).then(() => {
+        document.getElementById("copyTip").innerText = "✅ Copied successfully!";
+        setTimeout(() => {
+          document.getElementById("copyTip").innerText = "📧 Click to copy / Contact me via email";
+        }, 2000);
+      });
+    }
+
+    const backTopBtn = document.getElementById("backTop");
+
+    window.onscroll = function() {
+      backTopBtn.style.display = window.scrollY > 300 ? "flex" : "none";
+    };
+
+    backTopBtn.onclick = function() {
+      window.scrollTo(0, 0);
+    };
+
+    const themeBtn = document.getElementById("themeToggle");
+
+    themeBtn.onclick = function() {
+      document.body.classList.toggle("dark-mode");
+      this.innerText = document.body.classList.contains("dark-mode") ? "☀️ Light Mode" : "🌙 Dark Mode";
+    };
+
+    window.addEventListener("load", () => {
+      setTimeout(() => {
+        document.getElementById("loader").classList.add("hidden");
+      }, 500);
+    });
+
+    const fadeElements = document.querySelectorAll(".fade-in");
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+        }
+      });
+    }, { threshold: 0.1 });
+
+    fadeElements.forEach(el => observer.observe(el));
+
+    let visitCount = localStorage.getItem("visitCount") || 0;
+    visitCount = parseInt(visitCount) + 1;
+    localStorage.setItem("visitCount", visitCount);
+    document.getElementById("visit-count").innerText = visitCount;
+
+    document.addEventListener("keydown", (e) => {
+      const key = e.key.toLowerCase();
+      if (key === "d") themeBtn.click();
+      if (key === "t") backTopBtn.click();
+    });
+  </script>
+</body>
+</html>
